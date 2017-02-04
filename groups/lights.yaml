@@ -1,0 +1,54 @@
+kitchen_main:
+  name: Kitchen Main
+  entities:
+    - light.kitchen_1
+    - light.kitchen_2
+    - light.kitchen_3
+kitchen:
+  name: Kitchen
+  entities:
+    - group.kitchen_main
+    - light.kitchen_cabinets
+main_floor:
+  name: Main Floor
+  entities:
+    - group.kitchen
+    - light.dining_room
+    - light.christmas_tree
+    - light.credenza
+    - light.livingroom_main
+    - light.livingroom_lamp
+    - light.entryway
+    - light.orb
+    - light.tv
+    - light.porch
+    - light.tv_strips
+    - light.bonus_room
+bedroom_fan:
+  name: Bedroom Fan
+  entities:
+    - light.bedroom_fan_1
+    - light.bedroom_fan_2
+bedroom:
+  name: Bedroom
+  entities:
+    - group.bedroom_fan
+    - light.craigs_bedroom_lamp
+    - light.jessicas_bedroom_lamp
+office:
+  name: Office
+  entities:
+    - light.office_desk_lamp
+    - light.office_lamp
+    - light.office_main
+upstairs:
+  name: Upstairs
+  entities:
+    - group.bedroom_fan
+    - light.craigs_bedroom_lamp
+    - light.jessicas_bedroom_lamp
+    - light.office_desk_lamp
+    - light.office_lamp
+    - light.office_main
+    - light.bathroom
+    - light.upstairs_corridor

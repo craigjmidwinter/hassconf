@@ -1,0 +1,53 @@
+# - alias: 'Jess is Home'
+  # trigger:
+    # platform: state
+    # entity_id: device_tracker.jess_iphone
+    # from: 'not_home'
+    # to: 'home'
+  # action:
+  # - delay: 00:00:60
+  # - service: tts.google_say
+    # entity_id: media_player.home
+    # data:
+      # message: 'Welcome home Jessica.'
+
+# - alias: 'Craig is Home'
+  # trigger:
+    # platform: state
+    # entity_id: device_tracker.craig_note4
+    # from: 'not_home'
+    # to: 'home'
+  # action:
+  # - delay: 00:00:60    
+  # - service: tts.google_say
+    # entity_id: media_player.home
+    # data:
+      # message: 'Welcome home Captain.'
+
+- alias: 'Someone is Home'
+  trigger:
+    platform: state
+    entity_id: group.all_devices
+    from: 'not_home'
+    to: 'home'
+  condition:
+  - condition: state
+    entity_id: input_boolean.night_mode
+    state: 'off'
+  - condition: state
+    entity_id: 'sun.sun'
+    state: 'below_horizon'      
+  action:
+    service: scene.turn_on
+    entity_id: scene.evening      
+
+
+- alias: 'Nobody is Home'
+  trigger:
+    platform: state
+    entity_id: group.all_devices
+    from: 'home'
+    to: 'not_home'    
+  action:
+    service: scene.turn_on
+    entity_id: scene.away          

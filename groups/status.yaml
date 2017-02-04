@@ -1,0 +1,18 @@
+speedtest:
+  name: Speedtest
+  entities:
+    - sensor.speedtest_ping
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+
+locations:
+  name: Locations
+  entities:
+    - camera.craig
+    - camera.jess
+
+wagglers:
+  name: Locations
+  entities:
+    - camera.waggler_1
+    - camera.waggler_2

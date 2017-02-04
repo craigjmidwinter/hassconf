@@ -1,0 +1,7 @@
+scene_panel:
+    name: Scenes
+    entities:
+      - input_boolean.night_mode
+      - input_boolean.movie_mode
+      - scene.bedtime
+      - scene.livingroom_movie

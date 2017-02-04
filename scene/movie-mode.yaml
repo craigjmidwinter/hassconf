@@ -1,0 +1,20 @@
+- name: livingroom_movie
+  entities:
+    light.livingroom_main:
+      state: on
+      brightness: 150
+    light.tv_strips: on
+    light.kitchen_cabinets: on
+    light.credenza: on
+    light.dining_room:
+      state: on
+      brightness: 80
+    light.christmas_tree: off
+    light.livingroom_lamp: off
+    light.entryway: off
+    light.orb:
+      state: on
+      brightness: 100
+    light.porch: off
+    light.bonus_room: off
+    group.kitchen_main: off

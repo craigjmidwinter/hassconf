@@ -1,0 +1,5 @@
+craig_and_jess:
+    name: Craig and Jess
+    entities:
+      - device_tracker.craig_craig
+      - device_tracker.jess_iphone

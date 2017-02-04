@@ -1,0 +1,34 @@
+- name: Night
+  entities:
+    group.all_lights: off
+    light.livingroom_lamp: on
+    light.kitchen_cabinets: on
+    input_boolean.night_mode: on
+
+- name: Morning
+  entities:
+    group.main_floor: on
+    light.bathroom: on
+    input_boolean.night_mode: off
+
+- name: Evening
+  entities:
+    group.main_floor: on
+    group.bedroom: on
+
+- name: Late Evening
+  entities:
+    group.bedroom_fan: off      
+    group.office: off
+
+- name: Bedtime
+  entities:
+    group.main_floor: off
+    group.office: off
+    light.upstairs_corridor: off
+    light.livingroom_lamp: on
+    light.kitchen_cabinets: on
+
+- name: Away
+  entities:
+    group.all_lights: off  

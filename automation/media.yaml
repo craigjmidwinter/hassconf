@@ -1,0 +1,62 @@
+- alias: 'Trigger Movie Mode living room off'
+  trigger:
+    platform: state
+    entity_id: input_boolean.movie_mode
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: media_player.living_room
+    state: 'playing'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.livingroom_movie
+
+- alias: 'Trigger Movie Mode living room on'
+  trigger:
+    platform: state
+    entity_id: input_boolean.movie_mode
+    to: 'off'
+  action:
+    service: homeassistant.turn_on
+    entity_id: group.main_floor
+
+
+- alias: 'Trigger Movie Mode living room'
+  trigger:
+    platform: state
+    entity_id: media_player.living_room
+    from: 'playing'
+  condition:
+    condition: state
+    entity_id: media_player.living_room
+    state: 'off'
+  action:
+    service: homeassistant.turn_on
+    entity_id: group.main_floor
+
+
+- alias: 'Living room movie - stopped'
+  trigger:
+    platform: state
+    entity_id: media_player.living_room
+    from: 'playing'
+  condition:
+    condition: state
+    entity_id: input_boolean.movie_mode
+    state: 'on'
+  action:
+    service: homeassistant.turn_on
+    entity_id: group.main_floor
+
+- alias: 'Living room movie - playing'
+  trigger:
+    platform: state
+    entity_id: media_player.living_room
+    to: 'playing'
+  condition:
+    condition: state
+    entity_id: input_boolean.movie_mode
+    state: 'on'
+  action:
+    service: scene.turn_on
+    entity_id: scene.livingroom_movie

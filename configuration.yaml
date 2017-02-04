@@ -1,0 +1,167 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 49.882584
+  longitude: -97.163657
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 234
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Winnipeg
+  customize:
+    # Only the 'entity_id' is required.  All other options are optional.
+    light.kitchen_1:
+      hidden: true
+    light.kitchen_2:
+      hidden: true
+    light.kitchen_3:
+      hidden: true
+    light.bedroom_fan_1:
+      hidden: true
+    light.bedroom_fan_2:
+      hidden: true
+    light.living_room:
+      hidden: true
+    light.goallight:
+      hidden: true
+    light.downstairs:
+      hidden: true
+    light.dimmable_light_1:
+      hidden: true
+    light.dimmable_light_2:
+      hidden: true
+    light.bedroom:
+      hidden: true
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+http:
+  api_password: !secret http_password
+  trusted_networks:
+    - 192.168.0.0/16
+  ip_ban_enabled: True
+  login_attempts_threshold: 5
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+tts:
+  - platform: google
+
+insteon_local:
+  host: 192.168.0.2
+  username: craig
+  password: !secret insteon_password
+
+light:
+  - platform: insteon_local
+  - platform: hue
+    host: 192.168.0.10
+
+media_player 1:
+  - platform: kodi
+    name: living_room
+    host: 192.168.0.126
+media_player 2:    
+  - platform: kodi
+    name: bedroom_kodi
+    host: 192.168.0.66   
+
+# Weather Prediction
+sensor:
+- platform: yr
+- platform: xbox_live
+  api_key: !secret xbox_api
+  xuid:
+    - !secret xbox_xuid
+- platform: speedtest
+  server_id: 4297
+  minute:
+    - 0
+    - 30
+  monitored_conditions:
+    - ping
+    - download
+    - upload    
+
+mqtt:
+  broker: 192.168.0.22
+  port: 1883
+  client_id: home-assistant
+  keepalive: 60
+  birth_message:
+    topic: 'hass/status'
+    payload: 'online'
+    qos: 1
+    retain: true
+  will_message:
+    topic: 'hass/status'
+    payload: 'offline'
+    qos: 1
+    retain: true
+
+device_tracker:
+  - platform: owntracks
+    max_gps_accuracy: 200
+
+camera:
+  - name: Craig
+    platform: generic
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.craig_craig.attributes.latitude }},{{ states.device_tracker.craig_craig.attributes.longitude }}&zoom=15&size=500x500&maptype=roadmap&markers=color:blue%7Clabel:C%7C{{ states.device_tracker.craig_craig.attributes.latitude }},{{ states.device_tracker.craig_craig.attributes.longitude }}
+    # limit_refetch_to_url_change: true
+  - name: Jess
+    platform: generic
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.jess_iphone.attributes.latitude }},{{ states.device_tracker.jess_iphone.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:red%7Clabel:J%7C{{ states.device_tracker.jess_iphone.attributes.latitude }},{{ states.device_tracker.jess_iphone.attributes.longitude }}
+    # limit_refetch_to_url_change: true
+  - name: Waggler 1
+    platform: mjpeg
+    mjpeg_url: http://woofsnwags.homeftp.net:50000/nphMotionJpeg?Resolution=640x480&Quality=Standard
+  - name: Waggler 2
+    platform: mjpeg
+    mjpeg_url: http://woofsnwags.homeftp.net:50001/nphMotionJpeg?Resolution=640x480&Quality=Standard    
+
+input_boolean:
+  night_mode:
+    name: Night Mode
+    initial: off
+    icon: mdi:sleep   
+  movie_mode:
+    name: Movie Mode
+    initial: off
+    icon: mdi:movie
+
+recorder:
+  db_url: !secret db_url
+
+group: !include_dir_merge_named groups
+
+emulated_hue:
+  type: google_home
+  # Google Home does not work on different ports.
+  listen_port: 80
+
+automation: !include_dir_merge_list automation
+scene: !include_dir_merge_list scene
+
+#switch: !include_dir_merge_list switch
+#script: !include_dir_merge_named script

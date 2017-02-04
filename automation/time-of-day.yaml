@@ -1,0 +1,83 @@
+- alias: 'Sunset'
+  trigger:
+    platform: sun
+    event: sunset
+    offset: "-00:45:00"
+  condition:
+    - condition: state
+      entity_id: group.all_devices
+      state: home
+    - condition: state
+      entity_id: 'sun.sun'
+      state: 'below_horizon'  
+  action:
+    service: scene.turn_on
+    entity_id: scene.evening
+
+- alias: 'Late Evening'
+  trigger:
+    platform: time
+    after: '21:30:00'    
+  condition:
+    - condition: state
+      entity_id: group.all_devices
+      state: home
+    - condition: state
+      entity_id: 'sun.sun'
+      state: 'below_horizon'  
+  action:
+    service: scene.turn_on
+    entity_id: scene.late_evening
+
+- alias: 'Night'
+  trigger:
+    platform: time
+    after: '00:00:00'    
+  condition:
+    - condition: state
+      entity_id: group.all_devices
+      state: home 
+  action:
+    - service: scene.turn_on
+      entity_id: scene.night
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.night_mode
+
+- alias: 'Morning - weekday'
+  trigger:
+    platform: time
+    after: '07:00:00'    
+  condition:
+    - condition: state
+      entity_id: group.all_devices
+      state: home 
+    - condition: time    
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri      
+  action:
+    - service: scene.turn_on
+      entity_id: scene.morning
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.night_mode
+
+- alias: 'Morning - weekend'
+  trigger:
+    platform: time
+    after: '09:00:00'    
+  condition:
+    - condition: state
+      entity_id: group.all_devices
+      state: home 
+    - condition: time    
+      weekday:
+        - sat
+        - sun     
+  action:
+    - service: scene.turn_on
+      entity_id: scene.morning
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.night_mode      
