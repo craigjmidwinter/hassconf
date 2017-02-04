@@ -149,6 +149,10 @@ input_boolean:
     name: Movie Mode
     initial: off
     icon: mdi:movie
+  bedtime:
+    name: Bed Time
+    initial: off
+    icon: mdi:sleep
 
 recorder:
   db_url: !secret db_url

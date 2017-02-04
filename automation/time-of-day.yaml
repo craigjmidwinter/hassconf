@@ -81,3 +81,14 @@
       entity_id: scene.morning
     - service: homeassistant.turn_off
       entity_id: input_boolean.night_mode      
+
+- alias: 'Bedtime'
+  trigger:
+    platform: state
+    entity_id: input_boolean.bedtime
+    to: 'on'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.bedtime
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.bedtime

@@ -18,3 +18,15 @@
     light.porch: off
     light.bonus_room: off
     group.kitchen_main: off
+
+- name: bedroom_movie_play
+  entities:
+    group.bedroom_fan: off
+    light.craigs_bedroom_lamp: off
+    light.jessicas_bedroom_lamp: off
+
+- name: bedroom_movie_play
+	entities:
+	 group.bedroom_fan: off
+	 light.craigs_bedroom_lamp: off
+	 light.jessicas_bedroom_lamp: off
